@@ -1,0 +1,61 @@
+@charset "utf-8";
+.center{ margin:0 auto; }
+
+.w1200{ width:1200px; }
+
+.newslist2-title {
+    border-bottom: 5px solid #d5d5d5;
+    margin-top:20px;
+}
+.newslist2-title span {
+    font-size: 36px;
+    line-height: 68px;
+	font-weight:bold;
+}
+
+
+
+.news-list2 li {
+    border-bottom: 1px solid #f3f3f3;
+    padding: 25px 20px 25px 0;
+}
+.news-list2 li a {
+    color: #333;
+}
+.news-list2 li  img{ float:left; margin-right:20px; }
+.news-list2 h3 {
+    color: #444;    
+    line-height: 34px;
+    margin-bottom: 15px;
+	font-size:24px;
+	font-family:"微软雅黑";
+	font-weight:bold;
+}
+.news-list2 p {
+    font-size: 15px;
+    line-height: 26px;
+	color: #585858;
+}
+.news-list2 .tail {
+    color: #999;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 15px;
+    overflow: hidden;
+	margin-right:20px;
+}
+.news-list2 .tail a {
+    color: #999;
+}
+.news-list2 .tail .left {
+    display: inline;
+    margin-right: 15px;
+}
+.news-list2 .tail .right {
+    display: inline;
+    margin-left: 25px;
+}
+
+.news-list2 i, .news-list2 img {
+    margin-bottom: 15px;
+}

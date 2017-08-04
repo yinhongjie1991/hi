@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/toutiao.css">
+	<link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/new_add.css">
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script type="text/javascript">
+		(function($) {
+    $.fn.innerfade = function(options) {
+        return this.each(function() {
+            $.innerfade(this, options);
+        });
+    };
+    $.innerfade = function(container, options) {
+        var settings = {
+            'animationtype':    'fade',
+            'speed':            'normal',
+            'type':             'sequence',
+            'timeout':          2000,
+            'containerheight':  'auto',
+            'runningclass':     'innerfade',
+            'children':         null
+        };
+        if (options)
+            $.extend(settings, options);
+        if (settings.children === null)
+            var elements = $(container).children();
+        else
+            var elements = $(container).children(settings.children);
+        if (elements.length > 1) {
+            $(container).css('position', 'relative').css('height', settings.containerheight).addClass(settings.runningclass);
+            for (var i = 0; i < elements.length; i++) {
+                $(elements[i]).css('z-index', String(elements.length-i)).css('position', 'absolute').hide();
+            };
+            if (settings.type == "sequence") {
+                setTimeout(function() {
+                    $.innerfade.next(elements, settings, 1, 0);
+                }, settings.timeout);
+                $(elements[0]).show();
+            } else if (settings.type == "random") {
+                    var last = Math.floor ( Math.random () * ( elements.length ) );
+                setTimeout(function() {
+                    do {
+                        current = Math.floor ( Math.random ( ) * ( elements.length ) );
+                } while (last == current );
+                    $.innerfade.next(elements, settings, current, last);
+                }, settings.timeout);
+                            $(elements[last]).show();
+                } else if (settings.type == 'random_start' ) {
+
+                    settings.type = 'sequence';
+                    var current = Math.floor ( Math.random () * ( elements.length ) );
+                    setTimeout(function(){
+                        $.innerfade.next(elements, settings, (current + 1) %  elements.length, current);
+                    }, settings.timeout);
+                    $(elements[current]).show();
+                }
+        }
+    };
+    $.innerfade.next = function(elements, settings, current, last) {
+        if (settings.animationtype == 'slide') {
+            $(elements[last]).slideUp(settings.speed);
+            $(elements[current]).slideDown(settings.speed);
+        } else if (settings.animationtype == 'fade') {
+            $(elements[last]).fadeOut(settings.speed);
+            $(elements[current]).fadeIn(settings.speed, function() {
+                removeFilter($(this)[0]);
+            });
+        }
+            
+        if (settings.type == "sequence") {
+            if ((current + 1) < elements.length) {
+                current = current + 1;
+                last = current - 1;
+            } else {
+                current = 0;
+                last = elements.length - 1;
+            }
+        } else if (settings.type == "random") {
+            last = current;
+            while (current == last)
+                current = Math.floor(Math.random() * elements.length);
+        }
+        setTimeout((function() {
+            $.innerfade.next(elements, settings, current, last);
+        }), settings.timeout);
+    };
+})(jQuery);
+// **** remove Opacity-Filter in ie ****
+function removeFilter(element) {
+    if(element.style.removeAttribute){
+        element.style.removeAttribute('filter');
+    }
+}
+	</script>
+
+	<script type="text/javascript">
+		    // jQuery.noConflict();
+		     jQuery(document).ready(function(){
+		    	jQuery('#news').innerfade({
+		            speed: '1',
+		            timeout: 2000,
+		            containerheight: 90,
+		            animationtype: 'fade'
+		        });
+		    });
+		  </script>
+</head>
+<body>
+	<!-- 导航 -->
+	<div class="full_screen">
+		<div class="dh w1200">
+	        <a href="news/index.htm" target="_blank">新闻中心</a>
+			<a href="http://rznews.rzw.com.cn/" target="_blank">融媒头条</a> 
+	        <a href="http://www.bzcm.net/news/node_14660.htm" target="_blank">民生在线</a>
+	        <a href="news/node_31760.htm" target="_blank">网易直播</a>
+	        <a href="http://ep.bzcm.net/lbwb/html/2017-01/13/node_2.htm" target="_blank">读报纸</a>
+			<a href="http://photo.rzw.com.cn/" target="_blank">看电视</a>
+	        <a href="http://www.rzw.com.cn/fangchan/" target="_blank">听广播</a>
+			<a href="http://www.rzw.com.cn/caijing/" target="_blank">部门风采</a>
+	        <a href="http://news.rzw.com.cn/qiche/" target="_blank">县区看点</a>
+	        <a href="http://www.bzcm.net/canyin/index.htm" target="_blank">滨州美食</a>
+	        <a href="http://www.bzcm.net/wenhua/" target="_blank">滨州文化</a>
+	    </div>
+	</div>
+	<div class="w11491">
+		<ul>
+			<li>
+				<a class="home1" href="">滨州传媒</a>
+			</li>
+			<li>
+				<a href="http://bzcmjt.bzcm.net/">滨州传媒集团</a>
+			</li>
+			<li>
+				<a href="ttp://www.bzrb.net/">滨州日报</a>
+			</li>
+			<li>
+				<a href="">鲁北晚报</a>
+			</li>
+			<li>
+				<a href="gbdt/index.htm">滨州人民广播电台</a>
+			</li>
+			<li>
+				<a href="">滨州电视台</a>
+			</li>
+			<li>
+				<a href="http://a.bzcm.net/huodong/ywgs.html">印务公司</a>
+			</li>
+			<li>
+				<a href="">旅游公司</a>
+			</li>
+			<li>
+				<a href="huwai/index.htm">户外传媒</a>
+			</li>
+		</ul>
+		<ul class="xianqu">
+			<li>
+				<a class="home1" href="">县区风采</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5829.htm">滨城区</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5823.htm">沾化区</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5826.htm">惠民县</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5825.htm">阳信县</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5824.htm">无棣县</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5822.htm">博兴县</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5827.htm">邹平县</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5828.htm">滨州经济开发区</a>
+			</li>
+			<li>
+				<a href="http://bzcm.net/news/node_5828.htm">滨州高新技术产业开发区</a>
+			</li>
+			<li>
+				<a href="news/node_7020.htm">北海经济开发区</a>
+			</li>
+		</ul>
+	</div>
+
+	<ul class="hotspot clearfix f14 lh28 mt15">
+		<li>
+			<a href="">
+				<img src="http://www.jiaodong.net/index/v2017/temp/img60_60_01.jpg">
+			</a>
+			<b>
+				<a href="">【砥砺奋进的五年】</a>
+			</b>
+			实现中华民族伟大复兴
+		</li>
+
+		<li>
+			<a href="">
+				<img src="http://img.jiaodong.net/pic/003/002/731/00300273197_7d8f70f3.jpg">
+			</a>
+			<b>
+				<a href="">【烟台国学小名士】</a>
+			</b>与万科同诵经典，筑书香魅力烟台
+		</li>
+		<li>
+			<a href="">
+				<img src="http://www.jiaodong.net/index/v2017/temp/img60_60_01.jpg">
+			</a>
+			<b>
+				<a href="">【砥砺奋进的五年】</a>
+			</b>
+			实现中华民族伟大复兴
+		</li>
+
+		<li>
+			<a href="">
+				<img src="http://img.jiaodong.net/pic/003/002/731/00300273197_7d8f70f3.jpg">
+			</a>
+			<b>
+				<a href="">【烟台国学小名士】</a>
+			</b>与万科同诵经典，筑书香魅力烟台
+		</li>
+	</ul>
+	<div class="dzt">
+	    <div class="dzt-left" id="ticker">     
+	      <!--大字头条 左 start-->
+	      	<div class="dzt1" >
+	      		<ul id="news"  style="overflow: hidden; display:block; margin:0; clear:both">
+	      			<li style="z-index: 5; position: absolute; display: none;">
+				      	<div class="z-dzt">
+			                <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">36种高价刚需药纳入医保 最高降幅达70%1</a>
+					  	</div>
+					  	<div class="f-dzt">
+					        <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">此次纳入药品目录的36种药品，包括31种西药和5种中成药1。</a>
+			        		<a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">31种西药中有22种进口药和9种国内药1。</a>
+					  	</div>
+				  	</li>
+				  	<li style="z-index: 4; position: absolute; display: none;">
+				      	<div class="z-dzt">
+			                <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">36种高价刚需药纳入医保 最高降幅达70%2</a>
+					  	</div>
+					  	<div class="f-dzt">
+					        <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">此次纳入药品目录的36种药品，包括31种西药和5种中成药2。</a>
+			        		<a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">31种西药中有22种进口药和9种国内药2。</a>
+					  	</div>
+				  	</li>
+				  	<li style="z-index: 3; position: absolute; display: list-item;">
+				      	<div class="z-dzt">
+			                <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">36种高价刚需药纳入医保 最高降幅达70%3</a>
+					  	</div>
+					  	<div class="f-dzt">
+					        <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">此次纳入药品目录的36种药品，包括31种西药和5种中成药3。</a>
+			        		<a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">31种西药中有22种进口药和9种国内药3。</a>
+					  	</div>
+				  	</li>
+				  	<li style="z-index: 5; position: absolute; display: none;">
+				      	<div class="z-dzt">
+			                <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">36种高价刚需药纳入医保 最高降幅达70%4</a>
+					  	</div>
+					  	<div class="f-dzt">
+					        <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">此次纳入药品目录的36种药品，包括31种西药和5种中成药4。</a>
+			        		<a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">31种西药中有22种进口药和9种国内药4。</a>
+					  	</div>
+				  	</li>
+				  	<li style="z-index: 4; position: absolute; display: none;">
+				      	<div class="z-dzt">
+			                <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">36种高价刚需药纳入医保 最高降幅达70%5</a>
+					  	</div>
+					  	<div class="f-dzt">
+					        <a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">此次纳入药品目录的36种药品，包括31种西药和5种中成药5。</a>
+			        		<a class="icon-blank" href="http://news.rzw.com.cn/guonei/guoneiyaowen/2017/0720/428807.shtml">31种西药中有22种进口药和9种国内药5。</a>
+					  	</div>
+				  	</li>
+			  	</ul>
+	      	</div>
+	      <!--大字头条 end-->
+	    </div>
+	    <div class="dzt-right">
+			<div id="slide-ads-box">
+	  		<!-- 幻灯片数据 -->
+	  		<ul rel="slide-ads-data" style="display: none;">
+		        <li>
+			      	<p class="data-title">创建国家森林城市 建设山清水秀美丽日照1</p>
+			     	<p class="data-url">http://www.rzw.com.cn/special/2017chuangsen/</p>
+			      	<p class="data-description"></p>
+			      	<p class="data-thumb">http://upload.rzw.com.cn/2017/0316/1489636274912.jpg</p>
+		    	</li>
+		        <li>
+			      	<p class="data-title">创城2</p>
+			      	<p class="data-url">http://special.rzw.com.cn/chuangcheng150916/</p>
+			     	<p class="data-description"></p>
+			      	<p class="data-thumb">http://upload.rzw.com.cn/2017/0321/1490067723846.png</p>
+		    	</li>
+		        <li>
+			      	<p class="data-title">创建国家森林城市 建设山清水秀美丽日照3</p>
+			      	<p class="data-url">http://www.rzw.com.cn/special/2017chuangsen/</p>
+			      	<p class="data-description"></p>
+			      	<p class="data-thumb">http://upload.rzw.com.cn/2017/0316/1489636351512.jpg</p>
+		    	</li>
+	      	</ul>
+		  	<div class="thumb-wrap">
+			    <div>
+			      	<a href="http://special.rzw.com.cn/chuangcheng150916/">
+			      		<img rel="thumb" src="http://upload.rzw.com.cn/2017/0321/1490067723846.png" width="260" height="66" alt="" style="display: inline;">
+			      	</a>
+			    </div>
+		  	</div>
+	  		<div class="tit-ctrl">
+			    <div class="fr ctrl" rel="ctrl">
+				    <img class="tl" rel="tl" src="http://img.rzw.com.cn/templates/default/images/turn-l.gif" title="点击切换到上一张">
+				    <img class="tr" rel="tr" src="http://img.rzw.com.cn/templates/default/images/turn-r.gif" title="点击切换到下一张">  
+				    <span class="num" rel="num"><strong>2</strong>/<em>3</em></span>    
+				    </div> 
+			    
+			  	</div>
+			</div>
+			<script type="text/javascript" src="http://img.rzw.com.cn/templates/default/js/slideObject2016ads.js"></script>
+			<img src="images/rx.png" width="260" height="20" border="0">
+		</div>
+  	</div>
+  	<div class="new_add" style="margin-bottom: 20px;">
+		<div class="fl left_slide_content">
+		<!-- 市政栏目 -->
+			<div class="tody_tt">
+				<img class="fl" src="images/tody_toutiao.png" alt="">
+				<h3 class="fl">华师附属农高区学校一期竣工</h3>
+				<p class="fl">
+					华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。<a href="" class="detail">[详细]</a>
+				</p>
+			</div>
+			<div class="tody_tt bz_sznew">
+				<img class="fl" src="images/bz_people.png" alt="">
+				<h3 class="fl">华师附属农高区学校一期竣工</h3>
+				<p class="fl">
+					华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。<a href="" class="detail">[详细]</a>
+				</p>
+			</div>
+			<div class="tody_tt bz_sznew">
+				<img class="fl" src="images/ms.png" alt="">
+				<h3 class="fl">华师附属农高区学校一期竣工</h3>
+				<p class="fl">
+					华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。<a href="" class="detail">[详细]</a>
+				</p>
+			</div>
+			<!-- 荆州 -->
+			<div>
+				<ul class="zx_list">
+					<li>
+						<a class="hre" href="">
+							<h3>荆州结束防汛应急四级响应防汛总体形势趋缓</h3>
+							<p>华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。</p>
+						</a>
+						<p>
+							<span class="fl date">2017-07-13</span>
+							<a class="share fr" href="javascript:;" style="background: url(images/share.png) 0 0 no-repeat;">
+							</a>
+						</p>
+						<div class="box">
+							<ul>
+								<li>
+									<i class="wx_icon"></i>
+									<a href="javascript:;">微博</a>
+								</li>
+								<li id="ckepop">
+									<i class="icon_wb"></i>
+									<a class="jiathis_button_weixin" href="javascript:;">微信</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="">
+							<h3>荆州结束防汛应急四级响应防汛总体形势趋缓</h3>
+							<p>华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。</p>
+						</a>
+						<p>
+							<span class="fl date">2017-07-13</span>
+							<a class="share fr" href="" style="background: url(images/share.png) 0 0 no-repeat;">
+							</a>
+						</p>
+					</li>
+					<li>
+						<a href="">
+							<h3>荆州结束防汛应急四级响应防汛总体形势趋缓</h3>
+							<p>华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。</p>
+						</a>
+						<p>
+							<span class="fl date">2017-07-13</span>
+							<a class="share fr" href="" style="background: url(images/share.png) 0 0 no-repeat;">
+							</a>
+						</p>
+					</li>
+					<li>
+						<a href="">
+							<h3>荆州结束防汛应急四级响应防汛总体形势趋缓</h3>
+							<p>华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。</p>
+						</a>
+						<p>
+							<span class="fl date">2017-07-13</span>
+							<a class="share fr" href="" style="background: url(images/share.png) 0 0 no-repeat;">
+							</a>
+						</p>
+					</li>
+					<!-- <li>
+						<a href="">
+							<h3>荆州结束防汛应急四级响应防汛总体形势趋缓</h3>
+							<p>华中师范大学附属华中农高区学校为九年一贯制公办学校，占地118亩，总建筑面积3.5万平方米，计划投资1.7亿元。</p>
+						</a>
+						<p>
+							<span class="fl date">2017-07-13</span>
+							<a class="share fr" href="" style="background: url(images/share.png) 0 0 no-repeat;">
+							</a>
+						</p>
+					</li> -->
+				</ul>
+				<a class="click_more" href="">点击查看更多资讯>></a>
+			</div>
+		</div>
+		<!-- 左侧内容结束 -->
+		<div class="right_slide_content fr">
+			<div class="top_banner">
+				<div class="pc-slide">
+					<div class="view">
+						<div class="swiper-container1">
+							<a class="arrow-left click_icon" href="#"></a>
+							<a class="arrow-right click_icon" href="#"></a>
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<a target="_blank">
+										<img src="images/b1.jpg" alt="">
+										<div class="title">1111</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a target="_blank"><img src="images/b2.jpg" alt="">
+										<div class="title">1111</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a target="_blank">
+										<img src="images/b3.jpg" alt="">
+										<div class="title">1111</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a target="_blank">
+										<img src="images/b4.jpg" alt="">
+										<div class="title">1111</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a target="_blank">
+										<img src="images/b5.jpg" alt="">
+										<div class="title">1111</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="preview">
+						<a class="icon_control arrow-left" href="#"></a>
+						<a class="icon_control arrow-right" href="#"></a>
+						<div class="swiper-container1">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide active-nav">
+									<img src="images/s1.jpg" alt="">
+								</div>
+								<div class="swiper-slide">
+									<img src="images/s2.jpg" alt="">
+								</div>
+								<div class="swiper-slide">
+									<img src="images/s3.jpg" alt="">
+								</div>
+								<div class="swiper-slide">
+									<img src="images/s4.jpg" alt="">
+								</div>
+								<div class="swiper-slide">
+									<img src="images/s5.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="other_content">
+				<div class="wangyi fl">
+					<div class="top">
+						<h3 class="title fl">网易直播</h3>
+						<h3 class="line fl"></h3>
+					</div>
+					<div class="zhibo_list">
+						<ul>
+							<li>
+								<a href="">
+									<img src="images/1.png" alt="">
+									<div class="title1">111</div>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<img src="images/1.png" alt="">
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<img src="images/1.png" alt="">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mt_jz fl">
+					<div class="mt_jz_wrapper">
+						<h3 class="title fl">媒体矩阵</h3>
+						<h3 class="fl line"></h3>
+					</div>
+					<div class="" style="display: inline-block;overflow: hidden;">
+						<img style="margin-left: 10px;" class="fl" src="images/2.png" alt="">
+						<div class="weibo fl">
+							<h3 class="title">
+								<img src="images/weibo.png" alt="">
+								<span style="color: #286F8B;">微博</span>
+							</h3>
+							<div style="overflow: hidden;padding-top: 14px;">
+								<img class="fl" src="images/cm.png" alt="">
+								<div class="fl" style="margin-left: 7px;">
+									<h3>滨州传媒网</h3>
+									<p class="care">
+										<span>+</span>
+										<span>加关注</span>
+									</p>
+								</div>
+							</div>
+							<div class="clear1" style="margin-top: 9px;">
+								<img class="fl pic" src="images/phone.png" alt="">
+								<div class="fl contact">
+									<p>新闻热线</p>
+									<p>0543-8171886</p>
+								</div>
+							</div>
+							<div class="clear1" style="margin-top: 8px;">
+								<img class="fl" src="images/phone.png" alt="">
+								<div class="fl contact">
+									<p>新闻热线</p>
+									<p>0543-8171887</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<ul class="jz_list">
+						<li>
+							<img src="images/6.png" alt="">
+							<p>官方微博</p>
+						</li>
+						<li>
+							<img src="images/zhangwo.png" alt="">
+							<p>掌握滨州微信</p>
+						</li>
+						<li>
+							<img src="images/toda.png" alt="">
+							<p>今滨州</p>
+						</li>
+						<li>
+							<img src="images/dt.png" alt="">
+							<p>滨州手机台</p>
+						</li>
+						<li>
+							<img src="images/df.png" alt="">
+							<p>全媒体</p>
+						</li>
+						<li>
+							<img src="images/cm-net.png" alt="">
+							<p>传媒网手机版</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="gg">
+				<img src="images/4.png" alt="">
+				<img src="images/5.png" alt="">
+			</div>
+		</div>
+	</div>
+  	<div class="w1149m clear_it">
+		<div class="video_left fl">
+			<div class="new_video_title">
+				<h3 class="bj_icon">焦点新闻</h3>
+				<a class="add_more fr"  href="">更多>></a>
+			</div>	
+			<ul class="video_list mart20">
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+				<li>
+					<a href="">2015年选调大学生村官拟录用为选调生人 ...</a>
+				</li>
+			</ul>
+		</div>
+		<div class="video_medi fl" style="margin-left: 15px;">
+			<div class="new_video_title">
+				<h3 class="bj_icon">滨州视频</h3>
+				<a class="add_more fr"  href="">更多>></a>
+			</div>
+			<ul class="video_list1 mart20">
+				<li>
+					<a href="">
+						<img src="images/ds.png" alt="">
+						<div class="title">2017年7月11日滨州新闻视频</div>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/ds.png" alt="">
+						<div class="title">2017年7月11日滨州新闻视频</div>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/ds.png" alt="">
+						<div class="title">2017年7月11日滨州新闻视频</div>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<img src="images/ds.png" alt="">
+						<div class="title">2017年7月11日滨州新闻视频</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="video_right fr" style="margin-left: 15px;">
+			<div class="new_video_title">
+				<h3 class="bj_icon">热点聚焦</h3>
+				<a class="add_more fr"  href="">更多>></a>
+			</div>
+			<ul class="video_list2 mart20">
+				<li>
+					<a href="">
+						<img src="images/12.png" alt="">
+					</a>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	<div class="video_bz">
+		<div style="background: #EEEEEE;">
+			<h3 class="bj_icon">视频滨州</h3>
+			<a class="fr more_right" href="">更多>></a>
+		</div>
+		<div class="clear"></div>
+		<div class="video_bz_con martop26">
+			<div class="video_bz_left fl">
+				<p class="turn_icon"></p>
+				<img src="images/wen.png" alt="">
+				<p></p>
+				<div class="wm_title">文明你也可以做到</div>
+			</div>
+			<div class="video_bz_right fr">
+				<ul>
+					<li>
+						<div class="bofang_but"></div>
+						<a href="">
+							<div>
+								<img src="images/right.png" alt="">
+							</div>
+							<p>文明你也可以做到</p>
+						</a>
+					</li>
+					<li>
+						<div class="bofang_but"></div>
+						<a href="">
+							<div>
+								<img src="images/right.png" alt="">
+							</div>
+							<p>文明你也可以做到</p>
+						</a>
+					</li>
+					<li>
+						<div class="bofang_but"></div>
+						<a href="">
+							<div>
+								<img src="images/right.png" alt="">
+							</div>
+							<p>文明你也可以做到</p>
+						</a>
+					</li>
+					<li>
+						<div class="bofang_but"></div>
+						<a href="">
+							<div>
+								<img src="images/right.png" alt="">
+							</div>
+							<p>文明你也可以做到</p>
+						</a>
+					</li>
+					<li>
+						<div class="bofang_but"></div>
+						<a href="">
+							<div>
+								<img src="images/right.png" alt="">
+							</div>
+							<p>文明你也可以做到</p>
+						</a>
+					</li>
+					<li>
+						<div class="bofang_but"></div>
+						<a href="">
+							<div>
+								<img src="images/right.png" alt="">
+							</div>
+							<p>文明你也可以做到</p>
+						</a>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- 广告banner -->
+		<div class="ge_banner">
+			<img src="images/ge.png" alt="">
+		</div>
+  	</div>
+  	<!-- 部门风采 -->
+  	<div class="video_bz martop14">
+		<div class="fl width567">
+			<div class="bumen_title">
+				<h3 class="bumen_fc bj_icon">部门风采</h3>
+			</div>
+			<div class="line-bot"></div>
+			<div class="bumen_content">
+				<h3 class="title tec">
+					<a href="">高新区双联自动产生效应</a>
+				</h3>
+				<div class="pictrue_content">
+					<img class="fl pic" src="images/gx.png" alt="">
+					<ul class="fr pictrue_content_title">
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="fr width567">
+			<div class="bumen_title">
+				<h3 class="bumen_fc bj_icon">县区看点</h3>
+			</div>
+			<div class="line-bot"></div>
+			<div class="bumen_content">
+				<h3 class="title tec">
+					<a href="">高新区双联自动产生效应</a>
+				</h3>
+				<div class="pictrue_content">
+					<img class="fl pic" src="images/gx.png" alt="">
+					<ul class="fr pictrue_content_title">
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+						<li>	
+							<a href="">高新区双联自动产生效应</a>
+							<div class="fr hour">12:00</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+  	</div>
+	<div class="clear"></div>
+</body>
+<script src="js/banner.js"></script>
+</html>
